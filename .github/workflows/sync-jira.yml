@@ -1,0 +1,30 @@
+---
+name: 🔷 Test Sync to Jira
+
+run-name: 🔷 Test Sync to Jira
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      perform_action:
+        description: 'Perform action'
+        required: true
+
+jobs:
+  sync-to-jira-test:
+    name: Sync to JIRA TEST
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Run synchronization to Jira
+        uses: tomassebestik/github-action-testing@master
+        with:
+          cron_job: true
+          jira_project: 'TEST'
